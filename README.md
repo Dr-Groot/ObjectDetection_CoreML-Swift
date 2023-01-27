@@ -79,3 +79,21 @@ Then we have our **model** of type *VNCoreMLModel* which is a container for the 
 Now most important part comes that is our **request** which is a *VNCoreMLRequest*. *VNCoreMLRequest* in simple word is a Vision Request which is a image analysis request that uses a CoreML model to process images. We have a completion handler that is providing us with an **finishRequest** and **error**. We take **results** from the finishRequest as a VNClassificationObservation which is an object that represents classification information that an image analysis request produces and at last we have our **observation**, which is an identifier which is known as classification label identifing the type of observation, which we are getting from the **results**.
 
 This request is handle by *VNImageRequestHandler*, an object that processes one or more image analysis requests pertaining to a single image. Here we are requesting a **pixelBuffer** which is a type of *cvPixelBuffer* and asking to perform **request** which is a type of Vison Request.
+
+## Extras
+
+**Warning Solutions**
+
+If you getting warning "'init()' is deprecated: Use init(configuration:) instead and handle errors appropriately.". You can use this code:
+```swift
+ guard let mlModel = try? Resnet50 (configuration: .init()).model,
+       let model = try? VNCoreMLModel(for: mlModel) else {return}
+```
+
+When starting AVCaptureSession getting background thread warning then you can use:
+```swift
+ let backgroundQueue = DispatchQueue(label: "background_queue", qos: .background)
+ backgroundQueue.async {
+     captureSession.startRunning()
+ }
+```
