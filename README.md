@@ -25,19 +25,20 @@ In our project we have two important functions, which we need to understand:
 **loadCameraAndPreview**
 
 ```swift
-private func loadCameraAndPreview() {
+//  SETTING UP THE CAMERA FOR RECOGNITION USING AVCaptureSession
+    private func loadCameraAndPreview() {
+        let captureSession = AVCaptureSession() // Creating Capture Session
+        captureSession.sessionPreset = .photo // Capture Present Style
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else { return } // Capture Device location is given to back camera
+        guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return } // Setting up the Capture device input from the device
+        captureSession.addInput(input) // Adding input to Capture Session
+        captureSession.startRunning() // Starting Capture Session
 
-        let captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .photo
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else {return}
-        guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {return}
-        captureSession.addInput(input)
-        captureSession.startRunning()
-
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        view.layer.addSublayer(previewLayer)
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) // Addedd the Capture Session to preview layer
+        view.layer.addSublayer(previewLayer) // Added previewLayer to View for displaying on the screen + Frame
         previewLayer.frame = view.frame
 
+//      Capturing the data from the video frame and adding delegate.
         let dataOutput = AVCaptureVideoDataOutput()
         dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
         captureSession.addOutput(dataOutput)
