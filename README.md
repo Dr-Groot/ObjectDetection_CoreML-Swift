@@ -68,7 +68,6 @@ In our project we have two important functions, which we need to understand:
 //      Handler
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
     }
-}
 ```
 
 captureOutput is a delegate method which is called everytime when camera is capturing a frame and in this function we will be setting up our model and request handler for object detection.
