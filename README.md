@@ -48,12 +48,15 @@ In our project we have two important functions, which we need to understand:
 **captureOutput**
 
 ```swift
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
 
+//      Image
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
+//      Model
         guard let model = try? VNCoreMLModel(for: SqueezeNet().model) else { return }
 
+//      Request
         let request = VNCoreMLRequest(model: model) { finishRequest, error in
             guard let results = finishRequest.results as? [VNClassificationObservation] else { return }
             guard let observation = results.first else { return }
@@ -62,6 +65,7 @@ In our project we have two important functions, which we need to understand:
             }
         }
 
+//      Handler
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
     }
 }
