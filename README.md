@@ -18,6 +18,8 @@ Core ML is the foundation for domain-specific frameworks and functionality. Core
 ## Project Work
 Real time camera object detection with Machine Learning. Basic introduction to Core ML, Vision and ARKit.
 
+![IMG_1968](https://user-images.githubusercontent.com/63160825/215076264-7806d5d1-3a3b-4e11-bf4b-2e8a95c2c84b.jpg)
+
 In our project we have two important functions, which we need to understand:
 + loadCameraAndPreview
 + captureOutput
