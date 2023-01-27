@@ -44,3 +44,14 @@ In our project we have two important functions, which we need to understand:
         captureSession.addOutput(dataOutput)
     }
 ```
+
+**captureOutput**
+
+```swift
+```
+
+captureOutput is a delegate method which is called everytime when camera is capturing a frame and in this function we will be setting up our model and request handler for object detection.
+
+So first we will talk about **pixelBuffer**, pixelBuffer will be storing the image which it will be getting from *CMSampleBufferGetImageBuffer*. *CMSampleBufferGetImageBuffer* returns an image buffer that contains the media data and here we are getting media data from **sampleBuffer** which is a type of *CMSampleBuffer* (An object that contains zero or more media samples of a uniform media type.). **sampleBuffer** is a capture output from *setSampleBufferDelegate(_:queue:)* (Sets the delegate that will accept captured buffers and the dispatch queue on which the delegate will be called.) 
+
+
