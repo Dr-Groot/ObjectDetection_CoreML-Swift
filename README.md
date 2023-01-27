@@ -54,7 +54,7 @@ In our project we have two important functions, which we need to understand:
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
 
 //      Model
-        guard let model = try? VNCoreMLModel(for: SqueezeNet().model) else { return }
+        guard let model = try? VNCoreMLModel(for: Resnet50().model) else { return }
 
 //      Request
         let request = VNCoreMLRequest(model: model) { finishRequest, error in
@@ -97,3 +97,19 @@ When starting AVCaptureSession getting background thread warning then you can us
      captureSession.startRunning()
  }
 ```
+
+**App Crash Solutions**
+
+Yes! sometime app may crash with warning "Message from debugger: Terminated due to memory issue". So we have two way of solving this
+First, you can use light model **SqueezeNet**.
+Second, you can reduce the Frame rate of capture device. For that you should check the supportive frame rate of your device by:
+```swift
+captureDevice.activeFormat.videoSupportedFrameRateRanges
+```
+and then you can set your frame rate by :
+```swift
+captureDevice.activeVideoMaxFrameDuration
+captureDevice.activeVideoMinFrameDuration
+```
+
+Thank you. Happy Learning !!!
