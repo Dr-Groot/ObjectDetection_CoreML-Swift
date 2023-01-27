@@ -13,5 +13,7 @@ Core ML is the foundation for domain-specific frameworks and functionality. Core
 
 ![image](https://user-images.githubusercontent.com/63160825/215057612-e69a36f6-137f-41f4-8a01-9e033f47787a.png)
 
+> Vision framework performs face and face landmark detection, text detection, barcode recognition, image registration, and general feature tracking. Vision also allows the use of custom Core ML models for tasks like classification or object detection.
+
 ## Project Work
 Real time camera object detection with Machine Learning. Basic introduction to Core ML, Vision and ARKit.
