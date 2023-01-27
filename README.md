@@ -48,6 +48,23 @@ In our project we have two important functions, which we need to understand:
 **captureOutput**
 
 ```swift
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+
+        guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+
+        guard let model = try? VNCoreMLModel(for: SqueezeNet().model) else { return }
+
+        let request = VNCoreMLRequest(model: model) { finishRequest, error in
+            guard let results = finishRequest.results as? [VNClassificationObservation] else { return }
+            guard let observation = results.first else { return }
+            DispatchQueue.main.async {
+                self.identifierLabel.text = "\(observation.identifier) \(observation.confidence * 100)"
+            }
+        }
+
+        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
+    }
+}
 ```
 
 captureOutput is a delegate method which is called everytime when camera is capturing a frame and in this function we will be setting up our model and request handler for object detection.
